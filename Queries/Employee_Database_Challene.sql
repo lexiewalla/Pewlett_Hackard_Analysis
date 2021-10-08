@@ -15,20 +15,21 @@ ORDER BY e.emp_no;
 
 select * from retirement_titles
 
-SELECT DISTINCT ON (emp_no) emp_no,
-first_name,
-last_name,
-title
+SELECT DISTINCT ON (rt.emp_no) rt.emp_no,
+	rt.first_name,
+	rt.last_name,
+	rt.title
 INTO unique_titles
-FROM retirement_titles
-ORDER BY emp_no ASC, title DESC;
+FROM RT AS rt
+ORDER BY emp_no, to_date DESC;
+
 
 select * from unique_titles
 
 
-SELECT COUNT(title), title
+SELECT COUNT(ut.emp_no), ut.title
 INTO retiring_titles
-FROM unique_titles
+FROM unique_titles as ut
 GROUP BY title
 ORDER BY COUNT(title) DESC;
 
